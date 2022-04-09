@@ -7,7 +7,7 @@ const prompt = require("prompt");
 const { exit } = require('process');
 
 
-let version = '7.0.4';
+let version = '7.0.5';
 prompt.message = "";
 prompt.delimiter = "";
 
