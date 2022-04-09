@@ -19,9 +19,11 @@ const statuscode ={
 var server = http.createServer(function (request, response) {
     if (config.output.enable_connect_message){
         if (request.headers.referer == undefined){
-            console.log(colors.bold.blue(`${request.connection.remoteAddress}发送了一个${request.method}请求 \"${request.url}\"`));
+            console.log(colors.bold.blue(`\b\b\b\b\b${request.connection.remoteAddress}发送了一个${request.method}请求 \"${request.url}\"`));
+            process.stdout.write(colors.bold.green(">"));
         }else{
-            console.log(colors.bold.blue(`${request.connection.remoteAddress}使用${request.headers.referer}发送了一个${request.method}请求 \"${request.url}\"`));
+            console.log(colors.bold.blue(`\b\b\b\b\b${request.connection.remoteAddress}使用${request.headers.referer}发送了一个${request.method}请求 \"${request.url}\"`));
+            process.stdout.write(colors.bold.green(">"));
         }
     }
 
@@ -119,16 +121,15 @@ start: 启动服务器
 restart: 重启服务器
 stop: 停止服务器
 exit: 退出服务器
-
 `));
 }
 LoopGetInput(
     {
         properties: {
             input: {
-                description: `${colors.bold.blue(":\n")}`,
+                description: `${colors.bold.green(">")}`,
                 required: true,
-                message: "EOF",
+                message: colors.red("\b\b\b\b\b\b\b\b\bEOF错误，请重新输入。"),
             }
         }
     },
