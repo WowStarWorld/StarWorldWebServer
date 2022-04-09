@@ -1,0 +1,19 @@
+{
+    "statuscode":{
+        "404": "<center><h1>404 Not Found</h1><hr/><h3>StarWorldWebServer</h3></center>",
+        "500": "<center><h1>500 Internal Server Error</h1><hr/><h3>StarWorldWebServer</h3></center>"
+    },
+    "address":{
+        "host": "localhost",
+        "port": "80"
+    },
+    "output":{
+        "enable_headers": false,
+        "enable_status_code": false,
+        "enable_connect_message": true,
+        "enable_start_message": true
+    },
+    "kernel":{
+        "run_command":"echo"
+    }
+}
