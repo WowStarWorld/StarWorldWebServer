@@ -7,7 +7,7 @@ const prompt = require("prompt");
 const { exit } = require('process');
 
 
-let version = '7.0.3';
+let version = '7.0.4';
 prompt.message = "";
 prompt.delimiter = "";
 
@@ -151,6 +151,7 @@ LoopGetInput(
                     console.log(colors.red("正在关闭服务器..."));
                     server.close()
                     console.log(colors.blue("正在启动服务器..."));
+                    let config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json'), 'utf-8'));
                     server.listen(config.address.port,config.address.host)
                     if (config.kernel.enable_run_command) execSync(config.kernel.run_command)
                 }catch(err){
@@ -159,6 +160,7 @@ LoopGetInput(
                 break;
             case "start":
                 try{
+                    let config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json'), 'utf-8'));
                     console.log(colors.blue("正在启动服务器..."));
                     server.listen(config.address.port,config.address.host)
                     if (config.kernel.enable_run_command) execSync(config.kernel.run_command)
