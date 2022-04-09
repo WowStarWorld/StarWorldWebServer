@@ -7,7 +7,7 @@ const prompt = require("prompt");
 const { exit } = require('process');
 
 
-let version = '7.0.1';
+let version = '7.0.2';
 prompt.message = "";
 prompt.delimiter = "";
 
@@ -29,7 +29,7 @@ var server = http.createServer(function (request, response) {
     fs.readFile(`./server${decodeURI(request.url).split("?")[0]}` , (err, data) => {
         if (err) {
             if (!fs.stat.isFile) {
-                fs.readFile(`./server${decodeURI(request.url).split("?")[0]}/index.html`, (err, data) => {
+                fs.readFile(`./server${decodeURI(request.url).split("?")[0]}index.html`, (err, data) => {
                     if (err) {
                         if (fs.stat.isFile) {
                             response.writeHead(500, {
@@ -39,11 +39,34 @@ var server = http.createServer(function (request, response) {
                             response.end(statuscode[500]);
                             
                         } else {
-                            response.writeHead(404, {
-                                'Content-Type': 'text/html'
+                            fs.readFile(`./server${decodeURI(request.url).split("?")[0]}.html`, (err, data) => {
+                                if (err) {
+                                    if (fs.stat.isFile) {
+                                        response.writeHead(404, {
+                                            'Content-Type': 'text/html'
+                                        });
+                                        if (config.output.enable_status_code) console.log(colors.bold.blue("状态码：404"));
+                                        response.end(statuscode[404]);
+                                    } else {
+                                        response.writeHead(404, {
+                                            'Content-Type': 'text/html'
+                                        });
+                                        if (config.output.enable_status_code) console.log(colors.bold.blue("状态码：404"));
+                                        response.end(statuscode[404]);
+                                    }
+                                } else {
+                                    response.writeHead(200, {
+                                        'Content-Type': 'text/html'
+                                    });
+                                    if (config.output.enable_status_code) console.log(colors.bold.blue("状态码：200"));
+                                    response.end(data);
+                                }
                             });
-                            if (config.output.enable_status_code) console.log(colors.bold.blue("状态码：404"));
-                            response.end(statuscode[404]);
+                            //response.writeHead(404, {
+                            //    'Content-Type': 'text/html'
+                            //});
+                            //if (config.output.enable_status_code) console.log(colors.bold.blue("状态码：404"));
+                            //response.end(statuscode[404]);
                             
                         }
                     } else {
