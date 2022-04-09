@@ -7,7 +7,7 @@ const prompt = require("prompt");
 const { exit } = require('process');
 
 
-let version = '7.0.2';
+let version = '7.0.3';
 prompt.message = "";
 prompt.delimiter = "";
 
@@ -62,11 +62,7 @@ var server = http.createServer(function (request, response) {
                                     response.end(data);
                                 }
                             });
-                            //response.writeHead(404, {
-                            //    'Content-Type': 'text/html'
-                            //});
-                            //if (config.output.enable_status_code) console.log(colors.bold.blue("状态码：404"));
-                            //response.end(statuscode[404]);
+
                             
                         }
                     } else {
@@ -115,7 +111,7 @@ function LoopGetInput(message, callback) {
 }
 
 
-execSync(config.kernel.run_command)
+if (config.kernel.enable_run_command) execSync(config.kernel.run_command)
 function replhelp() {
 console.log(colors.bold.blue(`
 help: 显示帮助
@@ -156,7 +152,7 @@ LoopGetInput(
                     server.close()
                     console.log(colors.blue("正在启动服务器..."));
                     server.listen(config.address.port,config.address.host)
-                    execSync(config.kernel.run_command)
+                    if (config.kernel.enable_run_command) execSync(config.kernel.run_command)
                 }catch(err){
                     console.log(colors.red("服务器重启失败："+err));
                 }
@@ -165,7 +161,7 @@ LoopGetInput(
                 try{
                     console.log(colors.blue("正在启动服务器..."));
                     server.listen(config.address.port,config.address.host)
-                    execSync(config.kernel.run_command)
+                    if (config.kernel.enable_run_command) execSync(config.kernel.run_command)
                 }catch(err){
                     console.log(colors.red("服务器启动失败："+err));
                 }
