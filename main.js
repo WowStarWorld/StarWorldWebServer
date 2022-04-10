@@ -172,11 +172,8 @@ LoopGetInput(
             case "help":
                 replhelp();
                 break;
-            case "命令":
-                console.log(colors.bold.blue(`已知命令：命令`));
-                break;
-            case "已知命令":
-                console.log(colors.bold.blue(`已知命令：已知命令`));
+            case "clear":
+                process.stdout.write('\033[0f');
                 break;
             default:
                 console.log(colors.red("未知命令："+result.input));
